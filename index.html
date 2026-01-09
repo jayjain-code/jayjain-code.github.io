@@ -1,1 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playable Web Games</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+    :root {
+      --bg: #0b0b0e;
+      --card: #15151c;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #22c55e;
+      --border: #2a2a35;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #111827, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      max-width: 700px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    main {
+      width: 100%;
+      max-width: 900px;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #171720, var(--card));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.4;
+      margin-bottom: 1.2rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 999px;
+      background: #1f2937;
+      color: #cbd5f5;
+      border: 1px solid #374151;
+    }
+
+    .play-btn {
+      text-align: center;
+      padding: 0.75rem;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.04);
+      filter: brightness(1.1);
+    }
+
+    .coming-soon {
+      background: linear-gradient(180deg, #121212, #0f0f0f);
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding: 2rem 1rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer span {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1>Playable Web Games 🎮</h1>
+    <p>
+      Small experimental games you can play instantly.<br />
+      Built for fun. No installs. No ads.
+    </p>
+  </header>
+
+  <!-- GAME GRID -->
+  <main>
+
+    <!-- CHRONO CLASH -->
+    <div class="card">
+      <div>
+        <h2>Chrono Clash</h2>
+        <p>
+          A turn-based tactical battle across the <strong>Past, Present, and Future</strong>.
+          What you do in one timeline changes the others.
+        </p>
+
+        <div class="tags">
+          <span class="tag">Turn-Based</span>
+          <span class="tag">Strategy</span>
+          <span class="tag">Time Travel</span>
+        </div>
+      </div>
+
+      <a class="play-btn" href="https://jayjain-code.github.io/Chrono-Clash/" target="_blank">
+        ▶ Play Now
+      </a>
+    </div>
+
+    <!-- ECLIPSE & DAWN -->
+    <div class="card">
+      <div>
+        <h2>Eclipse & Dawn</h2>
+        <p>
+          A chess-like strategy game driven by a global
+          <strong>day–night cycle</strong> and powerful eclipses.
+        </p>
+
+        <div class="tags">
+          <span class="tag">Asymmetric</span>
+          <span class="tag">Board Game</span>
+          <span class="tag">Day / Night</span>
+        </div>
+      </div>
+
+      <a class="play-btn" href="https://jayjain-code.github.io/Eclipse-Dawn/" target="_blank">
+        ▶ Play Now
+      </a>
+    </div>
+
+    <!-- SHADOW RUN -->
+    <div class="card">
+      <div>
+        <h2>Shadow Run: The Heist</h2>
+        <p>
+          A tense stealth game where one player hacks,
+          and the other hunts using vision and noise.
+        </p>
+
+        <div class="tags">
+          <span class="tag">Stealth</span>
+          <span class="tag">Asymmetric</span>
+          <span class="tag">Tactical</span>
+        </div>
+      </div>
+
+      <a class="play-btn" href="https://jayjain-code.github.io/Shadow-Run-The-Heist/" target="_blank">
+        ▶ Play Now
+      </a>
+    </div>
+
+    <!-- COMING SOON -->
+    <div class="card coming-soon">
+      <div>
+        <h2>Coming Soon</h2>
+        <p>
+          New experimental game in progress.
+          Short, strange, and playable.
+        </p>
+
+        <div class="tags">
+          <span class="tag">Prototype</span>
+          <span class="tag">WIP</span>
+        </div>
+      </div>
+
+      <div class="play-btn" style="opacity:0.4;">
+        ⏳ In Development
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>New games added regularly.</span><br />
+    <span>Tap • Play • Have fun</span>
+  </footer>
+
+</body>
+</html>
 
