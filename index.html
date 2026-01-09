@@ -3,248 +3,690 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Playable Pixels</title>
+  <title>Playable Pixels | Strategic Browser Games</title>
+  <meta name="description" content="Play innovative strategic games instantly in your browser. No downloads, no ads, pure gameplay.">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
 
     :root {
-      --bg: #0b0b0e;
-      --card: #15151c;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #22c55e;
-      --border: #2a2a35;
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #13131a;
+      --bg-tertiary: #1a1a24;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b8;
+      --text-muted: #6b6b80;
+      --accent-primary: #00ff88;
+      --accent-glow: rgba(0, 255, 136, 0.3);
+      --accent-secondary: #8b5cf6;
+      --border: #2a2a38;
+      --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top, #111827, var(--bg));
-      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      overflow-x: hidden;
+      position: relative;
     }
 
+    /* Animated background gradient orbs */
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      width: 600px;
+      height: 600px;
+      background: #667eea;
+      top: -200px;
+      right: -200px;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    body::after {
+      width: 500px;
+      height: 500px;
+      background: #f5576c;
+      bottom: -150px;
+      left: -150px;
+      animation: float 15s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(50px, 50px) scale(1.1); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Header */
     header {
       text-align: center;
-      padding: 3rem 1rem 2rem;
-      max-width: 700px;
+      padding: 5rem 1rem 3rem;
+      position: relative;
+    }
+
+    .logo-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-icon {
+      font-size: 3.5rem;
+      filter: drop-shadow(0 0 20px var(--accent-glow));
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 20px var(--accent-glow)); }
+      50% { filter: drop-shadow(0 0 35px var(--accent-glow)); }
     }
 
     header h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    main {
-      width: 100%;
-      max-width: 900px;
-      padding: 1rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: linear-gradient(180deg, #171720, var(--card));
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    }
-
-    .card h2 {
-      font-size: 1.4rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
       font-weight: 700;
-      margin-bottom: 0.4rem;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
     }
 
-    .card p {
-      color: var(--muted);
+    .subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+
+    .header-badges {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .badge:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    .badge-icon {
+      font-size: 1.1rem;
+    }
+
+    /* Game Grid */
+    .games-section {
+      padding: 2rem 0 4rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .game-count {
+      padding: 0.3rem 0.8rem;
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Game Card */
+    .game-card {
+      position: relative;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .game-card:nth-child(1)::before { background: var(--gradient-1); }
+    .game-card:nth-child(2)::before { background: var(--gradient-2); }
+    .game-card:nth-child(3)::before { background: var(--gradient-3); }
+    .game-card:nth-child(4)::before { background: var(--gradient-4); }
+
+    .game-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .game-card:hover::before {
+      opacity: 1;
+    }
+
+    .game-card-header {
+      padding: 2rem 2rem 1rem;
+      position: relative;
+    }
+
+    .game-mode-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 255, 136, 0.15);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 1rem;
+      letter-spacing: 0.3px;
+    }
+
+    .game-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .game-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
       font-size: 0.95rem;
-      line-height: 1.4;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
-    .tags {
+    .game-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1rem;
+      gap: 0.5rem;
+      padding: 0 2rem 1.5rem;
     }
 
     .tag {
-      font-size: 0.7rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 999px;
-      background: #1f2937;
-      color: #cbd5f5;
-      border: 1px solid #374151;
+      padding: 0.4rem 0.9rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
     }
 
-    .play-btn {
+    .game-card:hover .tag {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .game-card-footer {
+      padding: 0 2rem 2rem;
+    }
+
+    .play-button {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent-primary);
+      color: var(--bg-primary);
       text-align: center;
-      padding: 0.75rem;
-      border-radius: 10px;
-      font-weight: 600;
       text-decoration: none;
-      background: linear-gradient(135deg, #22c55e, #16a34a);
-      color: #022c22;
-      transition: transform 0.15s ease, filter 0.15s ease;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .play-btn:hover {
-      transform: scale(1.04);
-      filter: brightness(1.1);
+    .play-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s ease, height 0.5s ease;
     }
 
-    .coming-soon {
-      background: linear-gradient(180deg, #121212, #0f0f0f);
-      opacity: 0.6;
+    .play-button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .play-button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px var(--accent-glow);
+    }
+
+    .play-button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Coming Soon Card */
+    .coming-soon-card {
+      opacity: 0.7;
+      cursor: default;
+    }
+
+    .coming-soon-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .coming-soon-button {
+      background: var(--bg-tertiary);
+      color: var(--text-muted);
       cursor: not-allowed;
     }
 
-    footer {
-      margin-top: 3rem;
-      padding: 2rem 1rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.85rem;
+    .coming-soon-button:hover {
+      transform: none;
+      box-shadow: none;
     }
 
-    footer span {
-      opacity: 0.7;
+    /* Features Section */
+    .features-section {
+      padding: 4rem 0;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 2rem 0;
     }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .feature {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .feature-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-link {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+      border-color: var(--accent-primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+
+      header {
+        padding: 3rem 1rem 2rem;
+      }
+
+      .games-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    /* Scroll animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .game-card {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .game-card:nth-child(1) { animation-delay: 0.1s; }
+    .game-card:nth-child(2) { animation-delay: 0.2s; }
+    .game-card:nth-child(3) { animation-delay: 0.3s; }
+    .game-card:nth-child(4) { animation-delay: 0.4s; }
   </style>
 </head>
 
 <body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo-wrapper">
+        <span class="logo-icon">🎮</span>
+      </div>
+      <h1>Playable Pixels</h1>
+      <p class="subtitle">
+        Strategy games that challenge your mind and ignite competition. 
+        Innovative mechanics, tactical depth, zero fluff—just pure gameplay that rewards the smartest move.
+      </p>
+    </header>
 
-  <!-- HEADER -->
-  <header>
-    <h1>Playable Pixels 🎮</h1>
-    <p>
-      Strategic games you can play instantly.<br />
-      Built to think. No installs. No ads.
-    </p>
-  </header>
+    <!-- Games Section -->
+    <section class="games-section">
+      <div class="section-header">
+        <h2 class="section-title">Available Games</h2>
+        <span class="game-count">3</span>
+      </div>
 
-  <!-- GAME GRID -->
-  <main>
+      <div class="games-grid">
+        <!-- Chrono Clash -->
+        <div class="game-card">
+          <div class="game-card-header">
+            <div class="game-mode-badge">👥 Pass & Play</div>
+            <h3 class="game-title">Chrono Clash</h3>
+            <p class="game-description">
+              Navigate a turn-based tactical battle across three interconnected timelines: <strong>Past, Present, and Future</strong>. Every move ripples through time, creating strategic depth unlike any traditional game.
+            </p>
+          </div>
+          
+          <div class="game-tags">
+            <span class="tag">Turn-Based</span>
+            <span class="tag">Strategy</span>
+            <span class="tag">Time Travel</span>
+          </div>
 
-    <!-- CHRONO CLASH -->
-    <div class="card">
-      <div>
-        <h2>Chrono Clash</h2>
-        <p>
-          A turn-based tactical battle across the <strong>Past, Present, and Future</strong>.
-          What you do in one timeline changes the others.
-        </p>
+          <div class="game-card-footer">
+            <a class="play-button" href="https://jayjain-code.github.io/Chrono-Clash/" target="_blank" rel="noopener">
+              <span>▶ Play Now</span>
+            </a>
+          </div>
+        </div>
 
-        <div class="tags">
-          <span class="tag">Turn-Based</span>
-          <span class="tag">Strategy</span>
-          <span class="tag">Time Travel</span>
+        <!-- Eclipse & Dawn -->
+        <div class="game-card">
+          <div class="game-card-header">
+            <div class="game-mode-badge">👥 Pass & Play</div>
+            <h3 class="game-title">Eclipse & Dawn</h3>
+            <p class="game-description">
+              A chess-inspired strategy game with a dynamic <strong>day-night cycle</strong> that transforms the battlefield. Harness solar eclipses to unleash devastating power moves and dominate your opponent.
+            </p>
+          </div>
+          
+          <div class="game-tags">
+            <span class="tag">Asymmetric</span>
+            <span class="tag">Board Game</span>
+            <span class="tag">Day / Night</span>
+          </div>
+
+          <div class="game-card-footer">
+            <a class="play-button" href="https://jayjain-code.github.io/Eclipse-Dawn/" target="_blank" rel="noopener">
+              <span>▶ Play Now</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Shadow Run -->
+        <div class="game-card">
+          <div class="game-card-header">
+            <div class="game-mode-badge">👥 Pass & Play</div>
+            <h3 class="game-title">Shadow Run: The Heist</h3>
+            <p class="game-description">
+              Master the art of stealth in this asymmetric thriller. One player infiltrates as the hacker, while the other hunts using <strong>vision cones and sound detection</strong>. Every step matters.
+            </p>
+          </div>
+          
+          <div class="game-tags">
+            <span class="tag">Stealth</span>
+            <span class="tag">Asymmetric</span>
+            <span class="tag">Tactical</span>
+          </div>
+
+          <div class="game-card-footer">
+            <a class="play-button" href="https://jayjain-code.github.io/Shadow-Run-The-Heist/" target="_blank" rel="noopener">
+              <span>▶ Play Now</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Coming Soon -->
+        <div class="game-card coming-soon-card">
+          <div class="game-card-header">
+            <h3 class="game-title">Coming Soon</h3>
+            <p class="game-description">
+              A new experimental game is in active development. Expect something short, strange, and strategically compelling. Stay tuned for the reveal.
+            </p>
+          </div>
+          
+          <div class="game-tags">
+            <span class="tag">Prototype</span>
+            <span class="tag">WIP</span>
+          </div>
+
+          <div class="game-card-footer">
+            <button class="play-button coming-soon-button" disabled>
+              <span>⏳ In Development</span>
+            </button>
+          </div>
         </div>
       </div>
+    </section>
 
-      <a class="play-btn" href="https://jayjain-code.github.io/Chrono-Clash/" target="_blank">
-        ▶ Play Now
-      </a>
-    </div>
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature">
+            <span class="feature-icon">👥</span>
+            <h3 class="feature-title">Face-to-Face Fun</h3>
+            <p class="feature-description">
+              Share one screen with your opponent. Read their reactions, trash talk in real-time, and enjoy gaming the old-school way.
+            </p>
+          </div>
 
-    <!-- ECLIPSE & DAWN -->
-    <div class="card">
-      <div>
-        <h2>Eclipse & Dawn</h2>
-        <p>
-          A chess-like strategy game driven by a global
-          <strong>day–night cycle</strong> and powerful eclipses.
-        </p>
+          <div class="feature">
+            <span class="feature-icon">⚡</span>
+            <h3 class="feature-title">Zero Setup</h3>
+            <p class="feature-description">
+              No accounts, no matchmaking queues, no network lag. Just grab a friend and start playing instantly.
+            </p>
+          </div>
 
-        <div class="tags">
-          <span class="tag">Asymmetric</span>
-          <span class="tag">Board Game</span>
-          <span class="tag">Day / Night</span>
+          <div class="feature">
+            <span class="feature-icon">🎨</span>
+            <h3 class="feature-title">Innovative Mechanics</h3>
+            <p class="feature-description">
+              Unique gameplay you won't find anywhere else. Time travel, day-night cycles, asymmetric stealth—each game breaks new ground.
+            </p>
+          </div>
+
+          <div class="feature">
+            <span class="feature-icon">🧠</span>
+            <h3 class="feature-title">Pure Strategy</h3>
+            <p class="feature-description">
+              No pay-to-win, no RNG nonsense. Victory goes to the player with the better tactics and deeper planning.
+            </p>
+          </div>
         </div>
       </div>
+    </section>
 
-      <a class="play-btn" href="https://jayjain-code.github.io/Eclipse-Dawn/" target="_blank">
-        ▶ Play Now
-      </a>
-    </div>
-
-    <!-- SHADOW RUN -->
-    <div class="card">
-      <div>
-        <h2>Shadow Run: The Heist</h2>
-        <p>
-          A tense stealth game where one player hacks,
-          and the other hunts using vision and noise.
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <h3 class="footer-title">Games That Make You Think</h3>
+        <p class="footer-text">
+          Playable Pixels is a collection of strategic experiences built around innovative mechanics and meaningful decisions. Each game strips away the noise to deliver pure tactical gameplay—no pay-to-win, no grinding, just skill versus skill.
         </p>
 
-        <div class="tags">
-          <span class="tag">Stealth</span>
-          <span class="tag">Asymmetric</span>
-          <span class="tag">Tactical</span>
+        <div class="social-links">
+          <a href="https://github.com/jayjain-code" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <span>⚡</span>
+          </a>
+        </div>
+
+        <div class="copyright">
+          © 2024 Playable Pixels. All games are free to play and share.<br>
+          Built with strategy in mind. No ads. No tracking. Just games.
         </div>
       </div>
-
-      <a class="play-btn" href="https://jayjain-code.github.io/Shadow-Run-The-Heist/" target="_blank">
-        ▶ Play Now
-      </a>
-    </div>
-
-    <!-- COMING SOON -->
-    <div class="card coming-soon">
-      <div>
-        <h2>Coming Soon</h2>
-        <p>
-          New experimental game in progress.
-          Short, strange, and playable.
-        </p>
-
-        <div class="tags">
-          <span class="tag">Prototype</span>
-          <span class="tag">WIP</span>
-        </div>
-      </div>
-
-      <div class="play-btn" style="opacity:0.4;">
-        ⏳ In Development
-      </div>
-    </div>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <span>New games added regularly.</span><br />
-    <span>Tap • Play • Have fun</span>
-  </footer>
-
+    </footer>
+  </div>
 </body>
 </html>
-
